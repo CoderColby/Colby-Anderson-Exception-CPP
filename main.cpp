@@ -1,7 +1,33 @@
 #include <iostream>
 using namespace std;
 
+class invalidCharacterException {
+  private:
+    char invalidChar;
+  public:
+    invalidCharacterException(char c) {
+      invalidChar = c;
+    }
+    char getChar() {
+      return invalidChar;
+    }
+};
+
+class invalidRangeException {
+  private:
+    int invalidRange;
+  public:
+    invalidRangeException(int i) {
+      invalidRange = i;
+    }
+    int getRange() {
+      return invalidRange;
+    }
+};
+
+
 char character(char start, int offset);
+
 
 int main() {
   std::cout << "Hello World!\n";
@@ -9,9 +35,14 @@ int main() {
 
 
 char character(char start, int offset) {
-  string charException = "ERROR: Invalid character\n";
-  string rangeException = "ERROR: Invalid range\n";
 
   if (!isalpha(start))
-    throw charException;
+    throw invalidCharacterException(start);
+
+  start += offset;
+
+  if (!isalpha(start))
+    throw invalidRangeException(offset);
+
+  return start;
 }
