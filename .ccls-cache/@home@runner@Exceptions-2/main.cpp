@@ -41,6 +41,8 @@ char character(char start, int offset) {
 
   start += offset;
 
-  if (!isalpha(start))
+  if (!isalpha(start) || (start - 91) * (start + offset - 91) < 0)
     throw invalidRangeException(offset);
+
+  return start;
 }
