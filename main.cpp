@@ -35,11 +35,11 @@ char character(char start, int offset);
 
 
 int main() {
-  char start = 'a';
-  int offset = 2;
+  char start = 'A';
+  int offset = 32;
 
   try {
-    cout << character(start, offset);
+    cout << start << "+" << offset << "=" << character(start, offset);
   } catch (invalidCharacterException e) {
     cout << "ERROR: The character " << e.getChar() << " is not a letter.";
   } catch (invalidRangeException e) {
@@ -53,10 +53,10 @@ char character(char start, int offset) {
   if (!isalpha(start))
     throw invalidCharacterException(start);
 
-  start += offset;
+  char end = start + offset;
 
-  if (!isalpha(start) || (start - 91) * (start + offset - 91) < 0)
+  if (!isalpha(end) || (start - 91) * (end - 91) < 0)
     throw invalidRangeException(start, offset);
 
-  return start;
+  return end;
 }
